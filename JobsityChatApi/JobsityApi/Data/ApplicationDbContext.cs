@@ -1,5 +1,6 @@
 ﻿using JobsityApi.Data.Seeds;
 using JobsityApi.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
@@ -20,6 +21,8 @@ public class ApplicationDbContext : IdentityDbContext
     {
         base.OnModelCreating(builder);
 
+        builder.Entity<IdentityUser>().HasIndex(u => u.NormalizedUserName).IsUnique();
+        builder.Entity<IdentityUser>().HasIndex(u => u.NormalizedEmail).IsUnique();
         builder.Entity<Chatroom>().HasIndex(u => u.Title).IsUnique();
 
         #region seeds

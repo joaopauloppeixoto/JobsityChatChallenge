@@ -1,6 +1,6 @@
 ﻿namespace JobsityApi.ViewModels;
 
-public class NewUserViewModel
+public class NewUserViewModel : AuthViewModel
 {
-    public string Email { get; set; }
+    public string UserName { get; set; }
 }

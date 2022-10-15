@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
 using JobsityApi.Repositories.Interfaces;
+using JobsityApi.Services;
 using JobsityApi.Utils.CustomExceptions;
 using JobsityApi.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobsityApi.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
     public IAuthService AuthService { get; set; }
@@ -21,6 +23,16 @@ public class AuthController : ControllerBase
     {
         await AuthService.RegisterUserAsync(userRegistration);
         return StatusCode(201);
+    }
+
+    [HttpPost]
+    [AllowAnonymous]
+    [Route("login")]
+    public async Task<ActionResult<UserViewModel>> Authenticate([FromBody] AuthViewModel model)
+    {
+        var user = await AuthService.AuthAsync(model);
+
+        return Ok(user);
     }
 
 }
