@@ -41,7 +41,7 @@ builder.Services
         };
     });
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(s =>
+builder.Services.AddSwaggerGen(s => {
     s.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -49,8 +49,20 @@ builder.Services.AddSwaggerGen(s =>
         Scheme = "bearer",
         In = ParameterLocation.Header,
         Description = "Bearer Auth Header",
-    })
-);
+    });
+
+    s.AddSecurityRequirement(new OpenApiSecurityRequirement{{
+        new OpenApiSecurityScheme
+        {
+            Reference = new OpenApiReference
+            {
+                Type = ReferenceType.SecurityScheme,
+                Id="bearer"
+            }
+        },
+        new string []{}
+    }});
+});
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.RegisterServices();
 builder.Services.RegisterRepositories();
