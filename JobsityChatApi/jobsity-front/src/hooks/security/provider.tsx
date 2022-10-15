@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SecurityContext from "./context";
 
 import { useStateCached } from "../../utils";
@@ -20,6 +20,12 @@ const SecurityProvider: React.FC<{
     useStateCached<UserLogged>("user-logged");
   const { setAuthToken, setIsLoading, globalAlertError } =
     useContext(ServicesContext);
+  const [redirectToHome, setRedirectToHome] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (redirectToHome)
+      setRedirectToHome(false);
+  }, [redirectToHome]);
 
   const isLogged = () => {
     if (userLogged) {
@@ -28,13 +34,13 @@ const SecurityProvider: React.FC<{
     return false;
   };
 
-  const login = (user: string, password: string) => {
+  const login = (email: string, password: string) => {
     const data = {
-      email: user,
+      email: email,
       password: password,
     };
 
-    if (!user || !password) {
+    if (!email || !password) {
       globalAlertError(
         "Email and password can't be null."
       );
@@ -46,7 +52,7 @@ const SecurityProvider: React.FC<{
         token: string;
         email: string;
         nickname: string;
-      }>(`${API_CHAT}/Auth/login`, JSON.stringify(data))
+      }>(`${API_CHAT}/Auth/login`, data)
       .then((result) => {
         setUserLogged({
           Token: result.data.token,
@@ -54,6 +60,7 @@ const SecurityProvider: React.FC<{
         });
         setAuthToken(result.data.token);
         alert("Successful login.");
+        setRedirectToHome(true);
       })
       .catch((error) =>
         globalAlertError(
@@ -80,7 +87,9 @@ const SecurityProvider: React.FC<{
         userLogged,
       }}
     >
-      {(!userLogged && window.location.hash !== "#/Login" && window.location.hash !== "#/Register") ? <Navigate to={"/Login"} /> : children}
+      {(!userLogged && window.location.hash !== "#/Login" && window.location.hash !== "#/Register") && <Navigate to={"/Login"} />}
+      {redirectToHome && <Navigate to={"/"} />}
+      {children}
     </SecurityContext.Provider>
   );
 };

@@ -35,7 +35,7 @@ const Login: React.FC = () => {
         />
         <S.PageFooter>
           <Button type="link" href="#/Register">New account</Button>
-          <Button type="primary">Login</Button>
+          <Button type="primary" onClick={() => login(email!, password!)}>Login</Button>
         </S.PageFooter>
       </PageHeader>
     </S.Container>

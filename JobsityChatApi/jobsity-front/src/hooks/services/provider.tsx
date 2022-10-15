@@ -9,11 +9,6 @@ import { UserLogged } from "../security/provider";
 import { AxiosInstance } from "axios";
 import { Container } from "./styles";
 
-let releaseNotes = "";
-fetch(process.env.PUBLIC_URL + "/releasenotes.txt").then(async (result) => {
-  releaseNotes = await result.text();
-});
-
 const ServicesProvider: React.FC<{
   children?: React.ReactNode;
 }> = ({ children }: any) => {
@@ -99,7 +94,7 @@ const ServicesProvider: React.FC<{
     moreInfo?: string
   ) => {
     Swal.fire({
-      title: "Erro!",
+      title: "Error!",
       html: message,
       icon: "error",
       showConfirmButton: false,

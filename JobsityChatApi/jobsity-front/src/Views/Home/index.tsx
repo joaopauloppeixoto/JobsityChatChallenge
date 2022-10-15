@@ -1,14 +1,22 @@
-import { Typography } from 'antd';
-import React from 'react';
+import { PageHeader, Typography } from 'antd';
+import React, { useContext } from 'react';
+import { SecurityContext } from '../../hooks';
 
 import { Container } from './styles';
 
 const Home: React.FC = () => {
+  const { userLogged } = useContext(SecurityContext);
+  
   return (
     <Container>
-      <Typography.Title level={1}>
-        Jobsity Chat
-      </Typography.Title>
+      <PageHeader
+        ghost
+        onBack={() => window.history.back()}
+        title="Jobsity Chat"
+        subTitle={`Welcome ${userLogged?.User}, select a chatroom:`}
+      >
+        
+      </PageHeader>
     </Container>
   );
 }

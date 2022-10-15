@@ -17,6 +17,12 @@ class ConferenceApi {
     });
 
     this.chatRoutes = {
+      auth: {
+        post: new Post<T.NewUserViewModel, never>(
+          "auth",
+          this.instance
+        ).post,
+      },
       chatroom: {
         get: new Get<never, Array<T.ChatroomViewModel>>(
           "chatroom",
