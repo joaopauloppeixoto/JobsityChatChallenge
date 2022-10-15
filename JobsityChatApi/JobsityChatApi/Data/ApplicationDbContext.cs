@@ -1,13 +1,29 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using JobsityChatApi.Data.Seeds;
+using JobsityChatApi.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
-namespace JobsityChatApi.Data
+namespace JobsityChatApi.Data;
+
+public class ApplicationDbContext : IdentityDbContext
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public DbSet<Message> Messages { get; set; }
+    public DbSet<Chatroom> Chatrooms { get; set; }
+
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
+    }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+
+        builder.Entity<Chatroom>().HasIndex(u => u.Title).IsUnique();
+
+        #region seeds
+        builder.Entity<Chatroom>().HasData(new ChatroomSeed().Get());
+        #endregion
     }
 }

@@ -4,6 +4,7 @@ using JobsityChatApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobsityChatApi.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221014235312_ChatroomSeed")]
+    partial class ChatroomSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,27 +44,27 @@ namespace JobsityChatApi.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7ec0f18e-63da-4509-b4d8-447c5fcebc75"),
+                            Id = new Guid("d9678177-5b2b-4097-b4c4-b2f90e97ca6d"),
                             Title = "Just Chatting 1"
                         },
                         new
                         {
-                            Id = new Guid("730ff058-1b92-4130-b6c3-60dd7f1408f5"),
+                            Id = new Guid("cddb89d0-594e-4613-b93a-f2d2693c51e2"),
                             Title = "Just Chatting 2"
                         },
                         new
                         {
-                            Id = new Guid("8446e302-50fe-4547-bdb3-d084deaddc1a"),
+                            Id = new Guid("b7b87834-b5ab-429f-af21-52b10526fb9b"),
                             Title = "Just Chatting 3"
                         },
                         new
                         {
-                            Id = new Guid("29eb3138-07b0-4565-a3db-e9d4c113cbcc"),
+                            Id = new Guid("54b58ae6-5ac7-41bd-9f7d-814dbd96d336"),
                             Title = "Just Chatting 4"
                         },
                         new
                         {
-                            Id = new Guid("a81c2257-d43c-4fe5-932c-4872568146d2"),
+                            Id = new Guid("35c9e3b1-6ac8-46aa-9b9f-d3a5a3ec3066"),
                             Title = "Just Chatting 5"
                         });
                 });
@@ -83,14 +85,14 @@ namespace JobsityChatApi.Data.Migrations
                     b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("SourceChatroomId")
+                    b.Property<Guid>("SourceId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SenderId");
 
-                    b.HasIndex("SourceChatroomId");
+                    b.HasIndex("SourceId");
 
                     b.ToTable("Messages");
                 });
@@ -303,15 +305,15 @@ namespace JobsityChatApi.Data.Migrations
                         .WithMany()
                         .HasForeignKey("SenderId");
 
-                    b.HasOne("JobsityChatApi.Models.Chatroom", "SourceChatroom")
+                    b.HasOne("JobsityChatApi.Models.Chatroom", "Source")
                         .WithMany()
-                        .HasForeignKey("SourceChatroomId")
+                        .HasForeignKey("SourceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Sender");
 
-                    b.Navigation("SourceChatroom");
+                    b.Navigation("Source");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
