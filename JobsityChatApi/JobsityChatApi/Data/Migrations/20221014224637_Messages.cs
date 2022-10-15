@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace JobsityChatApi.Data.Migrations
+namespace JobsityApi.Data.Migrations
 {
     public partial class Messages : Migration
     {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace JobsityChatApi.Controllers;
+namespace JobsityApi.Controllers;
 
 [Authorize]
 [Route("api/[controller]")]

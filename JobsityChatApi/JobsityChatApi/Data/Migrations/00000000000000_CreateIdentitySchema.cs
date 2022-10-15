@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace JobsityChatApi.Data.Migrations
+namespace JobsityApi.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

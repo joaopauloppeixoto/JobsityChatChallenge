@@ -1,8 +1,8 @@
-﻿using JobsityChatApi.Models;
+﻿using JobsityApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace JobsityChatApi.Controllers;
+namespace JobsityApi.Controllers;
 
 public class HomeController : Controller
 {

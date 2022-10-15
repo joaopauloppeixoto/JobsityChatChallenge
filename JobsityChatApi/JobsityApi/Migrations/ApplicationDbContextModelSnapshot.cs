@@ -4,18 +4,16 @@ using JobsityApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace JobsityApi.Data.Migrations
+namespace JobsityApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221014235703_SourceToSourceChatroom")]
-    partial class SourceToSourceChatroom
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,7 +22,7 @@ namespace JobsityApi.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("JobsityChatApi.Models.Chatroom", b =>
+            modelBuilder.Entity("JobsityApi.Models.Chatroom", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,32 +42,32 @@ namespace JobsityApi.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7ec0f18e-63da-4509-b4d8-447c5fcebc75"),
+                            Id = new Guid("fb64e486-26d5-4ccb-ae15-78814ad2ea7b"),
                             Title = "Just Chatting 1"
                         },
                         new
                         {
-                            Id = new Guid("730ff058-1b92-4130-b6c3-60dd7f1408f5"),
+                            Id = new Guid("8e195eaf-bd45-4b5a-94f8-bdf4c77773f5"),
                             Title = "Just Chatting 2"
                         },
                         new
                         {
-                            Id = new Guid("8446e302-50fe-4547-bdb3-d084deaddc1a"),
+                            Id = new Guid("e4c839a5-9908-4cb3-9a3b-6533a77439b5"),
                             Title = "Just Chatting 3"
                         },
                         new
                         {
-                            Id = new Guid("29eb3138-07b0-4565-a3db-e9d4c113cbcc"),
+                            Id = new Guid("e54b5f88-d58b-4978-98c2-19ac2ddea202"),
                             Title = "Just Chatting 4"
                         },
                         new
                         {
-                            Id = new Guid("a81c2257-d43c-4fe5-932c-4872568146d2"),
+                            Id = new Guid("eec33ca0-a798-4e28-b581-6082dcf6ee0b"),
                             Title = "Just Chatting 5"
                         });
                 });
 
-            modelBuilder.Entity("JobsityChatApi.Models.Message", b =>
+            modelBuilder.Entity("JobsityApi.Models.Message", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -242,12 +240,10 @@ namespace JobsityApi.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -284,12 +280,10 @@ namespace JobsityApi.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -299,13 +293,13 @@ namespace JobsityApi.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("JobsityChatApi.Models.Message", b =>
+            modelBuilder.Entity("JobsityApi.Models.Message", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderId");
 
-                    b.HasOne("JobsityChatApi.Models.Chatroom", "SourceChatroom")
+                    b.HasOne("JobsityApi.Models.Chatroom", "SourceChatroom")
                         .WithMany()
                         .HasForeignKey("SourceChatroomId")
                         .OnDelete(DeleteBehavior.Cascade)

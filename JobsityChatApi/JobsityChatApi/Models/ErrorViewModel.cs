@@ -1,4 +1,4 @@
-namespace JobsityChatApi.Models;
+namespace JobsityApi.Models;
 
 public class ErrorViewModel
 {
