@@ -24,7 +24,7 @@ class ConferenceApi {
         ).post,
       },
       chatroom: {
-        get: new Get<never, Array<T.ChatroomViewModel>>(
+        get: new Get<void, Array<T.ChatroomViewModel>>(
           "chatroom",
           this.instance
         ).get,

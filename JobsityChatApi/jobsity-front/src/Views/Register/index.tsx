@@ -35,6 +35,7 @@ const Register: React.FC = () => {
       userName: nickname,
     }).then(() => {
       alert("User registered successfully!");
+      window.history.back();
     }).catch(() => {
       globalAlertError("Something get wrong.");
     })

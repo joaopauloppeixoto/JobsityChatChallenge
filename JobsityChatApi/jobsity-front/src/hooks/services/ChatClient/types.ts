@@ -8,7 +8,7 @@ export interface Routes {
   };
   chatroom: {
     get: (
-      params: never
+      params: void
     ) => Promise<AxiosResponse<Array<ChatroomViewModel>, any>>;
   };
 }
