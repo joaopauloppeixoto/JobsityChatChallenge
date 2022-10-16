@@ -18,9 +18,10 @@ public class MessageRepository : IMessageRepository
         return await Context.Messages
             .Include(m => m.SourceChatroom)
             .Where(m => m.SourceChatroom.Title == chatroomTitle)
+            .OrderByDescending(w => w.CreatedOn)
             .Take(50)
-            .Include(m => m.Sender)
             .OrderBy(w => w.CreatedOn)
+            .Include(m => m.Sender)
             .ToListAsync();
     }
 

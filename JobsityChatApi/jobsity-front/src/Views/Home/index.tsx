@@ -1,16 +1,17 @@
-import { PageHeader, Select, Typography } from 'antd';
+import { Input, PageHeader, Select, Typography } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import { SecurityContext, ServicesContext } from '../../hooks';
 import { ChatroomViewModel, MessageViewModel } from '../../hooks/services/ChatClient/types';
 import { useStateCached } from '../../utils';
 
-import { Container } from './styles';
+import { Container, Messages } from './styles';
 
 const { Option, OptGroup } = Select;
 
 const Home: React.FC = () => {
   const { userLogged } = useContext(SecurityContext);
   const { routes, globalAlertError } = useContext(ServicesContext);
+  const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<Array<MessageViewModel>>([]);
   const [chatrooms, setChatrooms] = useState<Array<ChatroomViewModel>>([]);
   const [selectedChatroom, setSelectedChatroom] = useStateCached<string>("SelectedChatroom");
@@ -37,14 +38,30 @@ const Home: React.FC = () => {
     }
   }
 
+  const sendMessage = () => {
+    if (selectedChatroom && message) {
+      routes.message.post({
+        chatroomTitle: selectedChatroom,
+        content: message
+      })
+        .then(() => {
+          getMessages();
+          setMessage("");
+        })
+        .catch(() => {
+          globalAlertError("Something get wrong!");
+        });
+    }
+  }
+
   useEffect(() => {
-    if (!chatrooms.length){
+    if (!chatrooms.length) {
       getChatrooms();
     }
   }, []);
-  
+
   useEffect(() => {
-    if (selectedChatroom){
+    if (selectedChatroom) {
       getMessages();
     }
   }, [selectedChatroom]);
@@ -68,9 +85,29 @@ const Home: React.FC = () => {
           </Select>
         }
       >
-        {messages && messages.map((m, index) => {
-          return <div>{`${m.sender.nickname} says: ${m.content}`}</div>
-        })}
+        <Messages>
+          {messages && messages.map((m, index) => {
+            return (
+              <div key={index}>
+                {`${m.sender.nickname} says: ${m.content}`}
+              </div>
+            );
+          })}
+        </Messages>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (message) {
+              sendMessage();
+            }
+          }}
+        >
+          <Input placeholder="Write a message..."
+            title=""
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+        </form>
       </PageHeader>
     </Container>
   );
