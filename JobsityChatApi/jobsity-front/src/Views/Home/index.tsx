@@ -4,13 +4,13 @@ import { SecurityContext, ServicesContext } from '../../hooks';
 import { ChatroomViewModel, MessageViewModel } from '../../hooks/services/ChatClient/types';
 import { useStateCached } from '../../utils';
 
-import { Container, Messages } from './styles';
+import { Container, Message, Messages } from './styles';
 
 const { Option, OptGroup } = Select;
 
 const Home: React.FC = () => {
   const { userLogged } = useContext(SecurityContext);
-  const { routes, globalAlertError } = useContext(ServicesContext);
+  const { routes, globalAlertError, isLoading } = useContext(ServicesContext);
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<Array<MessageViewModel>>([]);
   const [chatrooms, setChatrooms] = useState<Array<ChatroomViewModel>>([]);
@@ -31,6 +31,11 @@ const Home: React.FC = () => {
       routes.message.get(selectedChatroom)
         .then((result) => {
           setMessages(result?.data);
+          setTimeout(() => {
+            if (!isLoading) {
+              getMessages();
+            }
+          }, 1000);
         })
         .catch(() => {
           globalAlertError("Something get wrong!");
@@ -88,9 +93,9 @@ const Home: React.FC = () => {
         <Messages>
           {messages && messages.map((m, index) => {
             return (
-              <div key={index}>
+              <Message key={index}>
                 {`${m.sender.nickname} says: ${m.content}`}
-              </div>
+              </Message>
             );
           })}
         </Messages>
@@ -102,7 +107,8 @@ const Home: React.FC = () => {
             }
           }}
         >
-          <Input placeholder="Write a message..."
+          <Input
+            placeholder="Write a message..."
             title=""
             value={message}
             onChange={(e) => setMessage(e.target.value)}

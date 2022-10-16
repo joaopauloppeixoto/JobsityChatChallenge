@@ -10,5 +10,6 @@ public static class ServicesDependency
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IChatroomService, ChatroomService>();
         services.AddScoped<IMessageService, MessageService>();
+        services.AddScoped<IFinancialService, FinancialService>();
     }
 }

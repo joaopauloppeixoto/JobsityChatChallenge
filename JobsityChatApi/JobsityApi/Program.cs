@@ -1,8 +1,8 @@
-using AspNet.Security.OAuth.Validation;
 using JobsityApi.Data;
 using JobsityApi.Services;
 using JobsityApi.Utils;
 using JobsityApi.Utils.Extensions;
+using JobsityApi.Workers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -90,4 +90,17 @@ app.UseCors(x => x
     .AllowCredentials());
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
+using IHost host = Host.CreateDefaultBuilder(args)
+    .ConfigureServices((hostContext, services) =>
+    {
+        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+        services.ConfigureIdentity();
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        services.RegisterRepositories();
+        services.RegisterServices();
+        services.AddHostedService<BotWorker>();
+    })
+    .Build();
+
 app.Run();
+host.Run();

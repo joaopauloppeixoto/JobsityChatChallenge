@@ -37,9 +37,9 @@ const ServicesProvider: React.FC<{
       (error) => {
         setIsLoading(false);
         if (!error.response) {
-          globalAlertError(
-            "Verifique a sua conexão com a internet antes de realizar essa ação."
-          );
+          // globalAlertError(
+          //   "Verifique a sua conexão com a internet antes de realizar essa ação."
+          // );
         } else {
           const code = error.response.status;
           const response = error.response.data;
@@ -132,9 +132,6 @@ const ServicesProvider: React.FC<{
       }}
     >
       <Container>
-        {isLoading && (
-          <>Loading...</>
-        )}
         {children}
       </Container>
     </ServicesContext.Provider>

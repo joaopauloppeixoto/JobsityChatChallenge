@@ -27,6 +27,7 @@ public class ApplicationDbContext : IdentityDbContext
 
         #region seeds
         builder.Entity<Chatroom>().HasData(new ChatroomSeed().Get());
+        builder.Entity<IdentityUser>().HasData(new IdentityUserSeed().Get());
         #endregion
     }
 }

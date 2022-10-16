@@ -15,9 +15,11 @@ namespace JobsityApi.Controllers;
 public class MessageController : ControllerBase
 {
     public IMessageService _service { get; set; }
-    public MessageController(IMessageService service)
+    public IFinancialService FinancialService { get; set; }
+    public MessageController(IMessageService service, IFinancialService financialService)
     {
         _service = service;
+        FinancialService = financialService;
     }
 
     [Authorize]
@@ -31,6 +33,12 @@ public class MessageController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] NewMessageViewModel message)
     {
+        if (message.Content.StartsWith('/'))
+        {
+            FinancialService.SendCommandAsync(message.Content, message.ChatroomTitle);
+            return Accepted();
+        }
+
         var user = User.Claims.SingleOrDefault(w => w.Type == ClaimTypes.Name)?.Value.ToUpper();
 
         if (user == null)

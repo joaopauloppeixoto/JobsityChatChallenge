@@ -6,6 +6,13 @@ export const Container = styled.div`
 
 export const Messages = styled.div`
   height: calc(100vh - 140px);
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   padding: 10px 0;
+`;
+
+export const Message = styled.div`
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  max-width: 600px;
 `;
