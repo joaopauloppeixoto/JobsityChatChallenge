@@ -7,30 +7,30 @@ namespace JobsityApi.Services;
 
 public class AuthService : IAuthService
 {
-    public IMapper Mapper { get; set; }
-    public IUserRepository UserRepository { get; set; }
+    public IMapper _mapper { get; set; }
+    public IUserRepository _repository { get; set; }
     public TokenService TokenService { get; set; }
-    public AuthService(IMapper mapper, IUserRepository userRepository, TokenService tokenService)
+    public AuthService(IMapper mapper, IUserRepository repository, TokenService tokenService)
     {
-        Mapper = mapper;
-        UserRepository = userRepository;
+        _mapper = mapper;
+        _repository = repository;
         TokenService = tokenService;
     }
 
     public async Task<UserViewModel> RegisterUserAsync(NewUserViewModel newUser)
     {
-        var user = Mapper.Map<NewUserViewModel, IdentityUser>(newUser);
+        var user = _mapper.Map<NewUserViewModel, IdentityUser>(newUser);
 
-        return Mapper.Map<IdentityUser, UserViewModel>(await UserRepository.RegisterAsync(user));
+        return _mapper.Map<IdentityUser, UserViewModel>(await _repository.RegisterAsync(user));
     }
 
     public async Task<UserViewModel> AuthAsync(AuthViewModel authViewModel)
     {
-        var user = Mapper.Map<AuthViewModel, IdentityUser>(authViewModel);
+        var user = _mapper.Map<AuthViewModel, IdentityUser>(authViewModel);
 
-        var checkedUser = await UserRepository.CheckAsync(user);
+        var checkedUser = await _repository.CheckAsync(user);
 
-        var auth = Mapper.Map<IdentityUser, UserViewModel>(checkedUser);
+        var auth = _mapper.Map<IdentityUser, UserViewModel>(checkedUser);
         auth.Token = TokenService.GenerateToken(checkedUser);
 
         return auth;

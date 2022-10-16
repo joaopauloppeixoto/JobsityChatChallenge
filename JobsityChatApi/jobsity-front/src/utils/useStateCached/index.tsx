@@ -27,7 +27,7 @@ export default <T,>(
   cacheName: string,
   isSessionValue?: boolean
 ): [T | undefined, Dispatch<SetStateAction<T | undefined>>, () => void] => {
-  const cacheNameWithPrefix = `paguemenos@${Package.name}.${process.env.NODE_ENV}/${cacheName}`;
+  const cacheNameWithPrefix = `useStateCached@${Package.name}.${process.env.NODE_ENV}/${cacheName}`;
   const [state, setState] = useState<T | undefined>(
     getCache(cacheNameWithPrefix, !!isSessionValue)
   );

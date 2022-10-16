@@ -7,9 +7,15 @@ export interface Routes {
     ) => Promise<AxiosResponse<UserViewModel, any>>;
   };
   chatroom: {
+    get: () => Promise<AxiosResponse<Array<ChatroomViewModel>, any>>;
+  };
+  message: {
     get: (
-      params: void
-    ) => Promise<AxiosResponse<Array<ChatroomViewModel>, any>>;
+      chatroomTitle: string
+    ) => Promise<AxiosResponse<Array<MessageViewModel>, any>>;
+    post: (
+      message: NewMessageViewModel
+    ) => Promise<AxiosResponse<void, any>>;
   };
 }
 
@@ -30,4 +36,19 @@ export interface AuthViewModel {
 
 export interface NewUserViewModel extends AuthViewModel {
   userName: string;
+}
+
+export interface MessageViewModel {
+  content: string;
+  sender: SenderViewModel;
+  createdOn: string;
+}
+
+export interface SenderViewModel {
+  nickname: string;
+}
+
+export interface NewMessageViewModel {
+  content: string;
+  chatroomTitle: string;
 }

@@ -29,6 +29,13 @@ class ConferenceApi {
           this.instance
         ).get,
       },
+      message: {
+        get: (chatroomTitle: string) => this.instance.get(`message/${chatroomTitle}`),
+        post: new Post<T.NewMessageViewModel, never>(
+          "message",
+          this.instance
+        ).post,
+      },
     };
   }
 }

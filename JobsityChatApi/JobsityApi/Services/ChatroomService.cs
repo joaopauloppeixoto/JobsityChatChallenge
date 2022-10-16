@@ -7,9 +7,20 @@ using JobsityApi.ViewModels;
 
 namespace JobsityApi.Services;
 
-public class ChatroomService : GenericService<Chatroom, ChatroomViewModel>, IChatroomService
+public class ChatroomService : IChatroomService
 {
-    public ChatroomService(IMapper mapper, IChatroomRepository repository) : base(mapper, (ChatroomRepository) repository)
+    public IMapper _mapper { get; set; }
+    public IChatroomRepository _repository { get; set; }
+    public ChatroomService(IMapper mapper, IChatroomRepository repository)
     {
+        _mapper = mapper;
+        _repository = repository;
+    }
+
+    public async Task<IList<ChatroomViewModel>> GetAll()
+    {
+        return (await _repository.GetAllAsync())
+            .Select(w => _mapper.Map<Chatroom, ChatroomViewModel>(w))
+            .ToList();
     }
 }

@@ -133,7 +133,7 @@ const ServicesProvider: React.FC<{
     >
       <Container>
         {isLoading && (
-          <>Carregando...</>
+          <>Loading...</>
         )}
         {children}
       </Container>

@@ -11,10 +11,10 @@ namespace JobsityApi.Controllers;
 [Route("api/[controller]")]
 public class ChatroomController : ControllerBase
 {
-    public ChatroomService _service { get; set; }
+    public IChatroomService _service { get; set; }
     public ChatroomController(IChatroomService service)
     {
-        _service = (ChatroomService) service;
+        _service = service;
     }
 
     [Authorize]

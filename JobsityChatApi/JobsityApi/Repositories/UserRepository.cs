@@ -34,4 +34,9 @@ public class UserRepository : IUserRepository
 
         return user;
     }
+
+    public async Task<IdentityUser?> GetByUsernameAsync(string username)
+    {
+        return await Context.Users.SingleOrDefaultAsync(u => u.NormalizedUserName == username);
+    }
 }

@@ -13,32 +13,32 @@ public class UserProfile : Profile
         var hash = new Hash(SHA512.Create());
         CreateMap<NewUserViewModel, IdentityUser>()
             .ForMember(
-                    dest => dest.PasswordHash,
-                    opt => opt.MapFrom(src => hash.PasswordHash(src.Password))
-                )
+                dest => dest.PasswordHash,
+                opt => opt.MapFrom(src => hash.PasswordHash(src.Password))
+            )
             .ForMember(
-                    dest => dest.NormalizedEmail,
-                    opt => opt.MapFrom(src => src.Email.ToUpper())
-                )
+                dest => dest.NormalizedEmail,
+                opt => opt.MapFrom(src => src.Email.ToUpper())
+            )
             .ForMember(
-                    dest => dest.NormalizedUserName,
-                    opt => opt.MapFrom(src => src.UserName.ToUpper())
-                );
+                dest => dest.NormalizedUserName,
+                opt => opt.MapFrom(src => src.UserName.ToUpper())
+            );
 
         CreateMap<AuthViewModel, IdentityUser>()
             .ForMember(
-                    dest => dest.PasswordHash,
-                    opt => opt.MapFrom(src => hash.PasswordHash(src.Password))
-                )
+                dest => dest.PasswordHash,
+                opt => opt.MapFrom(src => hash.PasswordHash(src.Password))
+            )
             .ForMember(
-                    dest => dest.NormalizedEmail,
-                    opt => opt.MapFrom(src => src.Email.ToUpper())
-                );
+                dest => dest.NormalizedEmail,
+                opt => opt.MapFrom(src => src.Email.ToUpper())
+            );
 
         CreateMap<IdentityUser, UserViewModel>()
             .ForMember(
-                    dest => dest.Nickname,
-                    opt => opt.MapFrom(src => src.UserName)
-                );
+                dest => dest.Nickname,
+                opt => opt.MapFrom(src => src.UserName)
+            );
     }
 }

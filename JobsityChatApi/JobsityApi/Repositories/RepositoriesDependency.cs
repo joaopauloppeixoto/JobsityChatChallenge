@@ -9,5 +9,6 @@ public static class RepositoriesDependency
     {
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IChatroomRepository, ChatroomRepository>();
+        services.AddScoped<IMessageRepository, MessageRepository>();
     }
 }

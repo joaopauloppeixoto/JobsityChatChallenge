@@ -7,4 +7,5 @@ public interface IUserRepository
 {
     public Task<IdentityUser> CheckAsync(IdentityUser user);
     public Task<IdentityUser> RegisterAsync(IdentityUser user);
+    public Task<IdentityUser?> GetByUsernameAsync(string username);
 }
