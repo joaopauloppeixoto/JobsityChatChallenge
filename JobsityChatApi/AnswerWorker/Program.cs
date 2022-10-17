@@ -1,7 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using DTOs;
+using Flurl;
+using Flurl.Http;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using System;
 using System.Net;
 using System.Text;
 using System.Text.Json;
@@ -15,6 +18,16 @@ using (var channel = connection.CreateModel())
                          exclusive: false,
                          autoDelete: false,
                          arguments: null);
+
+    var auth = await "https://localhost:7170/api"
+        .AppendPathSegment("Auth/login")
+        .PostJsonAsync(new
+        {
+            Email = "FinancialBot",
+            Password = "BotFinancialSecret"
+        })
+        .ReceiveJson<UserViewModel>();
+
     while (true)
     {
 
@@ -25,29 +38,15 @@ using (var channel = connection.CreateModel())
             var message = JsonSerializer.Deserialize<BotMessageDto>(Encoding.UTF8.GetString(body));
             Console.WriteLine(" [x] Received {0}", message);
 
-
-            var request = WebRequest.CreateHttp("https://localhost:7170/api/");
-        //    request.Method = "GET";
-        //    request.UserAgent = "RequisicaoWebDemo";
-        //    using (var resposta = request.GetResponse())
-        //    {
-        //        var streamDados = resposta.GetResponseStream();
-        //        StreamReader reader = new StreamReader(streamDados);
-        //        object objResponse = reader.ReadToEnd();
-        //        var post = JsonConvert.DeserializeObject<Post>(objResponse.ToString());
-        //        Console.WriteLine(post.Id + " " + post.title + " " + post.body);
-        //        Console.ReadLine();
-        //        streamDados.Close();
-        //        resposta.Close();
-        //    }
-        //    Console.ReadLine();
-        //}
-
-            //await MessageService.PostAsync(new NewMessageViewModel()
-            //{
-            //    ChatroomTitle = message.Source,
-            //    Content = message.Content,
-            //}, "FINANCIALBOT");
+            await "https://localhost:7170/api"
+                .AppendPathSegment("Message")
+                .WithOAuthBearerToken(auth.Token)
+                .PostJsonAsync(new
+                {
+                    Content = message?.Content,
+                    ChatroomTitle = message?.Source
+                })
+                .ReceiveJson<UserViewModel>();
         };
         channel.BasicConsume(queue: "financialAnswer",
                              autoAck: true,

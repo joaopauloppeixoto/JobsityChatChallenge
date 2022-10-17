@@ -7,4 +7,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Flurl.Http" Version="3.2.4" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DTOs\DTOs.csproj" />
+  </ItemGroup>
+
 </Project>

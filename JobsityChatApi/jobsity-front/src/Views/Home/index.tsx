@@ -31,11 +31,6 @@ const Home: React.FC = () => {
       routes.message.get(selectedChatroom)
         .then((result) => {
           setMessages(result?.data);
-          setTimeout(() => {
-            if (!isLoading) {
-              getMessages();
-            }
-          }, 1000);
         })
         .catch(() => {
           globalAlertError("Something get wrong!");

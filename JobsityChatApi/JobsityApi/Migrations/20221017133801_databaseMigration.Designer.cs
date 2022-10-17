@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobsityApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221016183559_botSeedNormalized")]
-    partial class botSeedNormalized
+    [Migration("20221017133801_databaseMigration")]
+    partial class databaseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,31 +47,31 @@ namespace JobsityApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("27723ef8-2843-46ea-b409-1c24e3060c69"),
+                            Id = new Guid("c235318d-235f-4c57-a0d0-30af488d5faa"),
                             Title = "Financial Chat 1",
                             Topic = "Financial"
                         },
                         new
                         {
-                            Id = new Guid("a68903fc-8269-45ad-9f41-893e69d118d3"),
+                            Id = new Guid("28b849e3-f81a-4e4f-905d-3d12cedf7e65"),
                             Title = "Financial Chat 2",
                             Topic = "Financial"
                         },
                         new
                         {
-                            Id = new Guid("f420d604-96a0-4c49-bb35-c08384aafc84"),
+                            Id = new Guid("0cc1eac0-0865-43ad-8934-927c4a5dc115"),
                             Title = "Financial Chat 3",
                             Topic = "Financial"
                         },
                         new
                         {
-                            Id = new Guid("381919bc-0825-403a-a597-97f360cb96d4"),
+                            Id = new Guid("919e7db5-f76b-47b1-912d-c09f7e1ef2ec"),
                             Title = "Just Chatting 1",
                             Topic = "Random"
                         },
                         new
                         {
-                            Id = new Guid("e36392fc-c45e-4469-9bc8-ad5f1e8cb488"),
+                            Id = new Guid("e5c2fcdb-bc4a-4aca-bf2a-61fc4a5d9dfe"),
                             Title = "Just Chatting 2",
                             Topic = "Random"
                         });
@@ -226,14 +226,17 @@ namespace JobsityApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1070bfed-0f3b-44df-8e73-d2065eaaecf2",
+                            Id = "8421d318-108f-44a7-a75e-f22ace85569b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "71ba9e6a-f363-4ec8-910b-ddcf35a9896e",
+                            ConcurrencyStamp = "f57dfc29-8b8e-477d-94ce-841cc2ab015b",
+                            Email = "FinancialBot",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
+                            NormalizedEmail = "FINANCIALBOT",
                             NormalizedUserName = "FINANCIALBOT",
+                            PasswordHash = "92A3A65E381EE2FBD206D2E21B803978818C07589F6ADDE10BACE967D5F30EB121B94D3C502A83405BC6FDCAC34A24507BE1461A0797C1E686C0F3208E5B2171",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "262b2118-8f5c-4728-a097-a6ed8ca394e5",
+                            SecurityStamp = "c9f5dcaf-93bd-4fc5-ac8f-ca269c421734",
                             TwoFactorEnabled = false,
                             UserName = "FinancialBot"
                         });

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace JobsityApi.Migrations
 {
-    public partial class identityMigration : Migration
+    public partial class databaseMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -53,7 +53,8 @@ namespace JobsityApi.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Title = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Topic = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -193,15 +194,20 @@ namespace JobsityApi.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "8421d318-108f-44a7-a75e-f22ace85569b", 0, "f57dfc29-8b8e-477d-94ce-841cc2ab015b", "FinancialBot", false, false, null, "FINANCIALBOT", "FINANCIALBOT", "92A3A65E381EE2FBD206D2E21B803978818C07589F6ADDE10BACE967D5F30EB121B94D3C502A83405BC6FDCAC34A24507BE1461A0797C1E686C0F3208E5B2171", null, false, "c9f5dcaf-93bd-4fc5-ac8f-ca269c421734", false, "FinancialBot" });
+
+            migrationBuilder.InsertData(
                 table: "Chatrooms",
-                columns: new[] { "Id", "Title" },
+                columns: new[] { "Id", "Title", "Topic" },
                 values: new object[,]
                 {
-                    { new Guid("8e195eaf-bd45-4b5a-94f8-bdf4c77773f5"), "Just Chatting 2" },
-                    { new Guid("e4c839a5-9908-4cb3-9a3b-6533a77439b5"), "Just Chatting 3" },
-                    { new Guid("e54b5f88-d58b-4978-98c2-19ac2ddea202"), "Just Chatting 4" },
-                    { new Guid("eec33ca0-a798-4e28-b581-6082dcf6ee0b"), "Just Chatting 5" },
-                    { new Guid("fb64e486-26d5-4ccb-ae15-78814ad2ea7b"), "Just Chatting 1" }
+                    { new Guid("0cc1eac0-0865-43ad-8934-927c4a5dc115"), "Financial Chat 3", "Financial" },
+                    { new Guid("28b849e3-f81a-4e4f-905d-3d12cedf7e65"), "Financial Chat 2", "Financial" },
+                    { new Guid("919e7db5-f76b-47b1-912d-c09f7e1ef2ec"), "Just Chatting 1", "Random" },
+                    { new Guid("c235318d-235f-4c57-a0d0-30af488d5faa"), "Financial Chat 1", "Financial" },
+                    { new Guid("e5c2fcdb-bc4a-4aca-bf2a-61fc4a5d9dfe"), "Just Chatting 2", "Random" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -234,7 +240,9 @@ namespace JobsityApi.Migrations
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
-                column: "NormalizedEmail");
+                column: "NormalizedEmail",
+                unique: true,
+                filter: "[NormalizedEmail] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
