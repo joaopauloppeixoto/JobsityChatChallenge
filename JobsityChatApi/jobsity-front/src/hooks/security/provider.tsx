@@ -7,6 +7,8 @@ import { Login } from "../../Views";
 import ServicesContext from "../services/context";
 import { API_CHAT } from "../../config";
 import { Navigate } from "react-router-dom";
+import { ButtonGroup } from "./style";
+import { Button } from "antd";
 
 export interface UserLogged {
   User: string;
@@ -70,10 +72,6 @@ const SecurityProvider: React.FC<{
       .finally(() => setIsLoading(false));
   };
 
-  const logout = () => {
-    clearUserLogged();
-  };
-
   useEffect(() => {
     if (!isLogged()) clearUserLogged();
   }, []);
@@ -82,7 +80,7 @@ const SecurityProvider: React.FC<{
     <SecurityContext.Provider
       value={{
         login,
-        logout,
+        logout: clearUserLogged,
         isLogged,
         userLogged,
       }}
@@ -90,6 +88,18 @@ const SecurityProvider: React.FC<{
       {(!userLogged && window.location.hash !== "#/Login" && window.location.hash !== "#/Register") && <Navigate to={"/Login"} />}
       {redirectToHome && <Navigate to={"/"} />}
       {children}
+      {userLogged && <ButtonGroup>
+        <Button
+          title="Logout"
+          type="default"
+          onClick={() => {
+            console.log("a");
+            clearUserLogged();
+          }}
+        >
+          Logout
+        </Button>
+      </ButtonGroup>}
     </SecurityContext.Provider>
   );
 };

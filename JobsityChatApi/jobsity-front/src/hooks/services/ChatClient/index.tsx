@@ -3,7 +3,7 @@ import { API_CHAT } from "../../../config";
 import { Get, Put, Post, Delete } from "./genericRoutes";
 import * as T from "./types";
 
-class ConferenceApi {
+class ChatApi {
   public instance: AxiosInstance;
   public chatRoutes: T.Routes;
 
@@ -40,4 +40,4 @@ class ConferenceApi {
   }
 }
 
-export default ConferenceApi;
+export default ChatApi;

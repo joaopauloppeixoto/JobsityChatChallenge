@@ -39,32 +39,32 @@ const Home: React.FC = () => {
   }
 
   const sendMessage = () => {
+    setMessage("");
     if (selectedChatroom && message) {
       routes.message.post({
         chatroomTitle: selectedChatroom,
         content: message
-      })
-        .then(() => {
-          getMessages();
-          setMessage("");
-        })
-        .catch(() => {
-          globalAlertError("Something get wrong!");
-        });
+      });
     }
   }
 
   useEffect(() => {
-    if (!chatrooms.length) {
-      getChatrooms();
-    }
-  }, []);
+    let interval: NodeJS.Timer;
+    setMessages([]);
+    interval = setInterval(() => {
+      if (selectedChatroom) {
+        getMessages();
+      }
+    }, 1000);
 
-  useEffect(() => {
-    if (selectedChatroom) {
-      getMessages();
+    return () => {
+      clearTimeout(interval);
     }
   }, [selectedChatroom]);
+
+  useEffect(() => {
+    getChatrooms();
+  }, []);
 
   return (
     <Container>
