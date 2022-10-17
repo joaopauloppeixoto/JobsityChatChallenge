@@ -69,6 +69,7 @@ builder.Services.RegisterServices();
 builder.Services.RegisterRepositories();
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<GlobalExceptionMiddleware>();
+builder.Services.RegisterGzipCompression();
 
 var app = builder.Build();
 
