@@ -9,4 +9,15 @@ public class AuthViewModel
 
     [Required]
     public string Password { get; set; }
+
+    public AuthViewModel()
+    {
+
+    }
+
+    public AuthViewModel(string email, string password)
+    {
+        Email = email;
+        Password = password;
+    }
 }

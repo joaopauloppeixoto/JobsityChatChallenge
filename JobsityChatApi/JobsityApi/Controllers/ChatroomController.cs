@@ -19,8 +19,8 @@ public class ChatroomController : ControllerBase
 
     [Authorize]
     [HttpGet]
-    public async Task<ActionResult<List<ChatroomViewModel>>> Get()
+    public async Task<IActionResult> Get()
     {
-        return Ok(await _service.GetAll());
+        return Ok(await _service.GetAllAsync());
     }
 }

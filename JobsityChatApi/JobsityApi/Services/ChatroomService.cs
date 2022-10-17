@@ -17,7 +17,7 @@ public class ChatroomService : IChatroomService
         _repository = repository;
     }
 
-    public async Task<IList<ChatroomViewModel>> GetAll()
+    public async Task<IList<ChatroomViewModel>> GetAllAsync()
     {
         return (await _repository.GetAllAsync())
             .Select(w => _mapper.Map<Chatroom, ChatroomViewModel>(w))

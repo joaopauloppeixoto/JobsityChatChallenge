@@ -24,7 +24,8 @@ public class MessageController : ControllerBase
 
     [Authorize]
     [HttpGet("{chatroomTitle}")]
-    public async Task<ActionResult<List<MessageViewModel>>> Get(string chatroomTitle)
+    //ActionResult<List<MessageViewModel>>
+    public async Task<IActionResult> Get(string chatroomTitle)
     {
         return Ok(await _service.GetByChatroomAsync(chatroomTitle));
     }

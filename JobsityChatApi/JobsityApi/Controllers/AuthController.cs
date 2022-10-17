@@ -28,7 +28,7 @@ public class AuthController : ControllerBase
     [HttpPost]
     [AllowAnonymous]
     [Route("login")]
-    public async Task<ActionResult<UserViewModel>> Authenticate([FromBody] AuthViewModel model)
+    public async Task<ActionResult> Authenticate([FromBody] AuthViewModel model)
     {
         var user = await AuthService.AuthAsync(model);
 
