@@ -20,7 +20,7 @@ const SecurityProvider: React.FC<{
 }> = ({ children }) => {
   const [userLogged, setUserLogged, clearUserLogged] =
     useStateCached<UserLogged>("user-logged");
-  const { setAuthToken, setIsLoading, globalAlertError } =
+  const { setAuthToken, setIsLoading, globalAlertError, globalSuccess } =
     useContext(ServicesContext);
   const [redirectToHome, setRedirectToHome] = useState<boolean>(false);
 
@@ -61,7 +61,7 @@ const SecurityProvider: React.FC<{
           User: result.data.nickname,
         });
         setAuthToken(result.data.token);
-        alert("Successful login.");
+        globalSuccess("Successful login.");
         setRedirectToHome(true);
       })
       .catch((error) =>

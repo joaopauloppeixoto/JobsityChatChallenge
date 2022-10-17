@@ -10,7 +10,7 @@ const Register: React.FC = () => {
   const [nickname, setNickname] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [repeatPassword, setRepeatPassword] = useState<string>("");
-  const { globalAlertError, routes } = useContext(ServicesContext);
+  const { globalAlertError, routes, globalSuccess } = useContext(ServicesContext);
 
   const register = () => {
     if (!email) {
@@ -34,7 +34,7 @@ const Register: React.FC = () => {
       password: password,
       userName: nickname,
     }).then(() => {
-      alert("User registered successfully!");
+      globalSuccess("User registered successfully!");
       window.history.back();
     }).catch(() => {
       globalAlertError("Something get wrong.");

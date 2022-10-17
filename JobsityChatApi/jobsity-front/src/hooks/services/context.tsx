@@ -6,6 +6,7 @@ export interface IServicesContext {
   setAuthToken: (token: string) => void;
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
+  globalSuccess: (message: string) => void;
   globalAlertError: (message: string) => void;
 }
 

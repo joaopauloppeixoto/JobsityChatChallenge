@@ -70,6 +70,23 @@ const ServicesProvider: React.FC<{
     if (chatApi) return apiInterceptors(chatApi.instance);
   }, [chatApi]);
 
+  const globalSuccess = (
+    message: string,
+    callback?: () => void
+  ) => {
+    Swal.fire({
+      title: "Success!",
+      html: message,
+      icon: "success",
+      showConfirmButton: false,
+      position: "top-end",
+      toast: true,
+      willClose: () => {
+        if (callback) callback();
+      },
+    });
+  };
+
   const globalAlertError = (
     message: string,
     callback?: () => void
@@ -100,6 +117,7 @@ const ServicesProvider: React.FC<{
         setAuthToken: setAuthToken,
         setIsLoading: setIsLoading,
         globalAlertError,
+        globalSuccess,
       }}
     >
       <Container>
